@@ -12,19 +12,9 @@ client.on('message', message => {
         return;
     }
 
-    //message.channel.send('Message received, ' + message.author.toString() + ": " + message.content);
-
-    // message.guild.emojis.cache.forEach(customEmoji => {
-    //     console.log(`${customEmoji.name} ${customEmoji.id}`);
-    // });
-
     if (message.content === "uwu") {
         message.channel.send('uwu');
     }
-
-    // for (let i =0; i <= 25; i++) {
-    //     client.channels.cache.get('777198649863438340').send("سان قەحبەیە")
-    // }
     
     if (message.content === "doge who made you?" || message.content === "Doge who made you?") {
         message.channel.send('lara made me <:emoji:751220586050486413> <:emoji:751220679642316830>');
@@ -72,11 +62,6 @@ function processCommand(message) {
             break;
         case 'convert':
             currencyCommand(message, splitCommand);
-            break;
-        case 'test':
-            // message.reply(message.author.displayAvatarURL());
-            console.log(client.emojis.cache)
-            message.react("<:duaa:822114603617091634>")
             break;
         default:
             return;
