@@ -92,12 +92,7 @@ function helpCommand(message) {
  doge
  pray
  weather [city]
- convert [amount] [base currency] [target currency]
- creator`);
-}
-
-function infoCommand(message) {
-    message.channel.send('<@696812610980544613> created me.');
+ convert [amount] [base currency] [target currency]`);
 }
 
 function memeCommand(message) {
