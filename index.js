@@ -153,7 +153,7 @@ function coronaCommand(message, args) {
             const data = await fetch(`https://coronavirus-19-api.herokuapp.com/countries/${args}`);
             const response = await data.json();
 
-            message.channel.send('Country: ' + response.country + '\nTotal Cases: ' + response.cases + '\nRecovered: ' + response.recovered + '\nDeaths: ' + response.deaths + '\nCurrent Cases: ' + response.active + '\nCritical Cases: ' + response.critical);
+            message.channel.send('Country: ' + response.country + '\nTotal Cases: ' + response.cases + '\nRecovered: ' + response.recovered + "\nNew cases: " + response.todayCases + '\nDeaths: ' + response.deaths + '\nCurrent Cases: ' + response.active + '\nCritical Cases: ' + response.critical);
         } catch (err) {
             message.channel.send('error: country not found.');
         }
