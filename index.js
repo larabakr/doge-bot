@@ -74,7 +74,6 @@ function helpCommand(message) {
  joke
  fortune
  corona [country]
- doge
  pray
  weather [city]
  convert [amount] [base currency] [target currency]`);
