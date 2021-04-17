@@ -63,6 +63,9 @@ function processCommand(message) {
         case 'convert':
             currencyCommand(message, splitCommand);
             break;
+        case 'sex':
+            sexCommand(message, args);
+            break;
         default:
             return;
     }
@@ -77,6 +80,17 @@ function helpCommand(message) {
  pray
  weather [city]
  convert [amount] [base currency] [target currency]`);
+}
+
+function sexCommand(message, args) {
+    const search = args;
+
+    const getsex = async () => {
+        const data = fetch(`https://www.eporner.com/api/v2/video/search/?query=${search}&per_page=10&page=2&thumbsize=big&order=top-weekly&gay=1&lq=1&format=json`)
+        const res = res.json();
+        console.log(res.videos[Math.floor(Math.random() * res.videos.length)]);
+    }
+    getsex();
 }
 
 function memeCommand(message) {
