@@ -87,7 +87,7 @@ function sexCommand(message, args) {
 
     const getsex = async () => {
         const data = fetch(`https://www.eporner.com/api/v2/video/search/?query=${search}&per_page=10&page=2&thumbsize=big&order=top-weekly&gay=1&lq=1&format=json`)
-        const res = res.json();
+        const res = data.json();
         message.channel.send({ files: [res.videos[Math.floor(Math.random() * res.videos.length)].default_thumb.src] });
     }
     getsex();
