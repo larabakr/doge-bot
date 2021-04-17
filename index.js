@@ -64,7 +64,7 @@ function processCommand(message) {
             currencyCommand(message, splitCommand);
             break;
         case 'sex':
-            sexCommand(message, args);
+            message.channel.send("die. go pray to allah instead of this shit.")
             break;
         default:
             return;
@@ -80,17 +80,6 @@ function helpCommand(message) {
  pray
  weather [city]
  convert [amount] [base currency] [target currency]`);
-}
-
-function sexCommand(message, args) {
-    const search = args;
-
-    async function getsex() {
-        const data = await fetch(`https://www.eporner.com/api/v2/video/search/?query=${args}`)
-        const res = await data.json();
-        message.channel.send({ files: [res.videos[Math.floor(Math.random() * res.videos.length)].default_thumb.src] });
-    }
-    getsex();
 }
 
 function memeCommand(message) {
