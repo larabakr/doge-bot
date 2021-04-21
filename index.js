@@ -144,7 +144,7 @@ function coronaCommand(message, args) {
 }
 
 function prayCommand(message) {
-    message.channel.send(message.author.toString() + ' earned 10 hasanat! :pramyer:');
+    message.channel.send(message.author.toString() + ' earned 10 hasanat! <:emoji:833491327596494848>');
 }
 
 function currencyCommand(message, args) {
