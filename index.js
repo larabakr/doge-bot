@@ -12,18 +12,6 @@ client.on('message', message => {
         return;
     }
 
-    if (message.content === "uwu") {
-        message.channel.send('uwu');
-    }
-    
-    if (message.content === "doge who made you?" || message.content === "Doge who made you?") {
-        message.channel.send('lara made me <:emoji:751220586050486413> <:emoji:751220679642316830>');
-    }
-
-    if (message.content === "i love you doge" || message.content === "I love you doge") {
-        message.channel.send('I love you too ' + message.author.toString());
-    }
-
     if (message.content.startsWith("=")) {
         processCommand(message);
     }
@@ -72,14 +60,21 @@ function processCommand(message) {
 }
  
 function helpCommand(message) {
-    message.channel.send(`command list: (prefix is =)
- meme
- joke
- fortune
- corona [country]
- pray
- weather [city]
- convert [amount] [base currency] [target currency]`);
+    const exampleEmbed = new Discord.MessageEmbed()
+	.setColor('#F7A8B8')
+	.setTitle('Commands List')
+	.setDescription('This is a list of all of the commands available')
+	.addFields(
+		{ name: 'Meme command', value: '=meme' },
+        { name: 'Random joke command', value: '=joke' },
+        { name: 'Fortune command', value: '=fortune' },
+        { name: 'Coronavirus cases command', value: '=corona [Country]' },
+        { name: 'Prayer command', value: '=pray' },
+        { name: 'Weather command', value: '=weather [City]' },
+        { name: 'Currency command', value: '=convert [Amount] [Base currency] [Target currency]' },
+	)
+
+    message.channel.send(exampleEmbed);
 }
 
 function memeCommand(message) {
