@@ -1,10 +1,31 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const fetch = require('node-fetch');
+import Discord from 'discord.js';
+import { config } from 'dotenv';
+
+import { helpCommand, helpModeration } from './commands/help.js';
+import memeCommand from './commands/meme.js';
+import muteCommand from './commands/mute.js';
+import prayCommand from './commands/pray.js';
+import banCommand from './commands/ban.js';
+import jokeCommand from './commands/joke.js';
+import kickCommand from './commands/kick.js';
+import fortuneCommand from './commands/fortune.js';
+import coronaCommand from './commands/coronavirus.js';
+import weatherCommand from './commands/weather.js';
+import currencyCommand from './commands/currency.js';
+import unmuteCommand from './commands/unmute.js';
+
+const client = new Discord.Client({ ws: { properties: { $browser: "Discord iOS" }} });
 
 client.on('ready', () => {
     console.log('connected as ' + client.user.tag);
-    client.user.setActivity('=')
+
+    // const exampleEmbed = new Discord.MessageEmbed()
+    // .setColor('#F7A8B8')
+    // .setTitle('Rules')
+    // .setAuthor('Duaa cult', 'https://cdn.discordapp.com/icons/853208751569633281/d4074965863627ac98b68c0122c24558.webp?size=256')
+    // .setDescription("1. No anti-LGBT behavior in any form. No misogyny, racism, sexism or xenophobia\n2. Don't use slurs, be respectful\n3. Don't insult Doge <:duaa:853210232176246794>\n4. No neo-nazi or any alt-right content is allowed\n5. Don't post harmful/suspicious links\n6. Don't spam")
+
+    // client.channels.cache.get('856185862239944734').send(exampleEmbed)
 });
 
 client.on('message', message => {
@@ -12,7 +33,9 @@ client.on('message', message => {
         return;
     }
 
-    if (message.content.startsWith("=")) {
+    // client.user.setUsername("Doge (عليه السلام)")
+
+    if (message.content.startsWith(">")) {
         processCommand(message);
     }
 });
@@ -26,9 +49,6 @@ function processCommand(message) {
     switch(primaryCommand) {
         case 'help':
             helpCommand(message);
-            break;
-        case 'creator':
-            infoCommand(message);
             break;
         case 'meme':
             memeCommand(message);
@@ -51,114 +71,26 @@ function processCommand(message) {
         case 'convert':
             currencyCommand(message, splitCommand);
             break;
-        case 'sex':
-            message.channel.send("die. go pray to allah instead of this shit.")
+        case 'mod':
+            helpModeration(message);
+            break;
+        case 'kick':
+            kickCommand(message);
+            break;
+        case 'ban':
+            banCommand(message);
+            break;
+        case 'mute': 
+            muteCommand(message, args);
+            break;
+        case 'unmute':
+            unmuteCommand(message, args);
             break;
         default:
             return;
     }
 }
- 
-function helpCommand(message) {
-    const exampleEmbed = new Discord.MessageEmbed()
-	.setColor('#F7A8B8')
-	.setTitle('Commands List')
-	.setDescription('This is a list of all of the commands available')
-	.addFields(
-		{ name: 'Meme command', value: '=meme' },
-        { name: 'Random joke command', value: '=joke' },
-        { name: 'Fortune command', value: '=fortune' },
-        { name: 'Coronavirus cases command', value: '=corona [Country]' },
-        { name: 'Prayer command', value: '=pray' },
-        { name: 'Weather command', value: '=weather [City]' },
-        { name: 'Currency command', value: '=convert [Amount] [Base currency] [Target currency]' },
-	)
 
-    message.channel.send(exampleEmbed);
-}
-
-function memeCommand(message) {
-    let uwu = '';
-    async function getMeme() {
-        const data = await fetch('https://meme-api.herokuapp.com/gimme');
-        const response = await data.json();
-        uwu = response.url;
-        message.channel.send({ files: [uwu] });
-    }
-    getMeme();
-}
-
-function jokeCommand(message) {
-    async function getJoke() {
-        const data = await fetch('https://official-joke-api.appspot.com/jokes/ten');
-        const response = await data.json();
-        let randomIndex = Math.floor(Math.random() * 9);
-        message.channel.send(`${response[randomIndex].setup}
-
-${response[randomIndex].punchline}`);
-    }
-    getJoke();
-}
-
-function weatherCommand(message, args) {
-    async function getWeather() {
-        const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${args}&units=metric&appid=ce3af4f6afd74069404ba9402a860e3f`);
-        const response = await data.json();
-        message.channel.send(`
-${response.main.temp}°C
-${response.weather[0].description}
-feels like: ${response.main.feels_like}°C
-low: ${response.main.temp_min}°C high: ${response.main.temp_max}°C
-pressure: ${response.main.pressure} hpa humidity: ${response.main.humidity}%
-        `);
-    }
-    getWeather();
-}
-
-function fortuneCommand(message) {
-    async function getFortune() {
-        const data = await fetch('http://yerkee.com/api/fortune');
-        const response = await data.json();
-        message.channel.send(response.fortune);
-    }
-    getFortune();
-}
-
-function coronaCommand(message, args) {
-    async function getCases() {
-        try {
-            const data = await fetch(`https://coronavirus-19-api.herokuapp.com/countries/${args}`);
-            const response = await data.json();
-
-            message.channel.send('Country: ' + response.country + '\nTotal Cases: ' + response.cases + '\nRecovered: ' + response.recovered + "\nNew cases: " + response.todayCases + '\nDeaths: ' + response.deaths + '\nCurrent Cases: ' + response.active + '\nCritical Cases: ' + response.critical);
-        } catch (err) {
-            message.channel.send('error: country not found.');
-        }
-    }
-    getCases();
-}
-
-function prayCommand(message) {
-    message.channel.send(message.author.toString() + ' earned 10 hasanat! <:emoji:833491327596494848>');
-}
-
-function currencyCommand(message, args) {
-    const amount = args[1];
-    const baseCurrency = args[2];
-    const targetCurrency = args[3];
-    async function convert() {
-        const data = await fetch(`http://free.currconv.com/api/v7/convert?q=${baseCurrency}_${targetCurrency}&compact=ultra&apiKey=cc8786072582cfa6e0e4`);
-        const response = await data.json();
-        const result = response[`${baseCurrency.toUpperCase()}_${targetCurrency.toUpperCase()}`] * amount;
-        const format = new Intl.NumberFormat('en-US', {
-            style: "currency",
-            currency: targetCurrency
-        });
-        message.channel.send(`${amount} ${baseCurrency.toUpperCase()} is ${format.format(result)}`);
-    }
-    convert();
-}
-
-require("dotenv").config()
+config();
 
 client.login(process.env.TOKEN);
