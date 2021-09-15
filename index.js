@@ -26,6 +26,10 @@ client.on('ready', () => {
     // .setDescription("1. No anti-LGBT behavior in any form. No misogyny, racism, sexism or xenophobia\n2. Don't use slurs, be respectful\n3. Don't insult Doge <:duaa:853210232176246794>\n4. No neo-nazi or any alt-right content is allowed\n5. Don't post harmful/suspicious links\n6. Don't spam")
 
     // client.channels.cache.get('856185862239944734').send(exampleEmbed)
+
+    setInterval(() => {
+        client.channels.cache.get('882042893135650848').send('!d bump');
+    }, 7200000);
 });
 
 client.on('message', message => {
