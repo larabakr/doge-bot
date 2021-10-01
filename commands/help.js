@@ -14,7 +14,9 @@ export function helpCommand(message) {
         { name: 'Currency command', value: '>convert [Amount] [Base currency] [Target currency]' },
 	)
 
-    message.channel.send(exampleEmbed);
+    message.channel.send({
+        embeds: [exampleEmbed]
+    });
 }
 
 export function helpModeration(message) {

@@ -1,18 +1,17 @@
 export default function banCommand(message) {
-    const { mentions } = message;
-    const target = mentions.users.first();
+  if (
+    message.member.roles.cache.some(
+      (role) => role.name === "internet janitors 💅🏻"
+    )
+  ) {
+    const user = message.mentions.users.first();
+    const member = message.guild.members.resolve(user);
 
-    if (message.member.hasPermission('ADMINISTRATOR') || message.member.hasPermission('BAN_MEMBERS')) {
-        if (target) {
-            try {
-                const targetMember = message.guild.members.cache.get(target.id);
-                targetMember.ban();
-                message.channel.send(`<@${targetmember.user.id}> has been banned.`)
-            } catch(err) { message.channel.send("User couldn't get banned.") }
-        } else {
-            message.channel.send('Could not find user.') 
-        }
-    } else {
-        message.channel.send(`${message.author.toString()} you can't use this command!`)
-    }
+    member
+      .ban({
+        reason: message.content.split(" ")[2],
+      })
+      .then(() => message.channel.send(`Successfully banned **${user.tag}**`))
+      .catch(() => message.channel.send(`Could not ban **${user.tag}**`));
+  }
 }

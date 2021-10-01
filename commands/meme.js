@@ -30,6 +30,8 @@ export default function memeCommand(message) {
         });
         results = results.slice(2);
     
-        message.channel.send(new MessageAttachment(results[Math.floor(Math.random() * results.length)]));
+        message.channel.send({
+            files: [new MessageAttachment(results[Math.floor(Math.random() * results.length)])]
+        });
     })();
 }

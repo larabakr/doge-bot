@@ -23,7 +23,7 @@ export default function coronaCommand(message, args) {
                     { name: 'Total Tests', value: response.totalTests.toLocaleString(), inline: true },
                 )
         
-            message.channel.send(exampleEmbed);
+            message.channel.send({ emdeds: [exampleEmbed] });
         } catch (err) {
             message.channel.send('error: country not found.');
             console.log(err)

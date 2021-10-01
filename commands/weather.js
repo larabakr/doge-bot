@@ -20,5 +20,5 @@ export default async function weatherCommand(message, args) {
         { name: 'Wind', value: `${response.wind.speed}m/s @ ${response.wind.deg}°`, inline: true },
     )
 
-    message.channel.send(exampleEmbed);
+    message.channel.send({ embeds: [exampleEmbed] });
 }
